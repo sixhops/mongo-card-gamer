@@ -1,0 +1,7 @@
+.GameDetail {
+  padding: 1em;
+  background-color: lightgreen;
+  width: 400px;
+  margin: 1em;
+  display: inline-block;
+}

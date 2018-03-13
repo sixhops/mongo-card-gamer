@@ -1,0 +1,7 @@
+.GameList {
+  padding: 1em;
+  background-color: pink;
+  width: 400px;
+  margin: 1em;
+  display: inline-block;
+}
