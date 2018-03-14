@@ -50,19 +50,19 @@ class App extends Component {
     console.log(this.state.games);
   }
 
-  // ////////
-  // var newStateArray = this.state.myArray.slice();
-  // newStateArray.push('new value');
-  // this.setState(myArray: newStateArray);
-  //
-  // handleSubmit = (event) => {
-  //   event.preventDefault()
-  //   const { title } = this.state
-  //   this.props.addArticle({ title })
-  //   this.setState({ title: "" })
-  // }
-  //
-  // ///////
+  ////////
+  var newStateArray = this.state.myArray.slice();
+  newStateArray.push('new value');
+  this.setState(myArray: newStateArray);
+
+  handleSubmit = (event) => {
+    event.preventDefault()
+    const { title } = this.state
+    this.props.addArticle({ title })
+    this.setState({ title: "" })
+  }
+
+  ///////
 
   // API call goes here so that data is available after component mounts
   componentDidMount() {
