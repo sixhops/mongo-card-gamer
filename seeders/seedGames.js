@@ -32,7 +32,7 @@ var games = [
 ];
 
 games.forEach(game => {
-  console.log("adding a game...")
+  // console.log("adding a game...")
   CardGame.create(
     {
       name: game.name,
