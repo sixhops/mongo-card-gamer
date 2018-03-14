@@ -46,9 +46,23 @@ class App extends Component {
       maxVal: e.target.value
     })
   }
-  handleSubmit(e) {
-    // Add your code here to handle adding a new game to the database
+  handleSubmit = (e) => {
+    console.log(this.state.games);
   }
+
+  // ////////
+  // var newStateArray = this.state.myArray.slice();
+  // newStateArray.push('new value');
+  // this.setState(myArray: newStateArray);
+  //
+  // handleSubmit = (event) => {
+  //   event.preventDefault()
+  //   const { title } = this.state
+  //   this.props.addArticle({ title })
+  //   this.setState({ title: "" })
+  // }
+  //
+  // ///////
 
   // API call goes here so that data is available after component mounts
   componentDidMount() {
