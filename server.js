@@ -41,9 +41,8 @@ app.get('/api/cardgames', (req, res) => {
 app.post('/api/cardgames', (req, res) => {
   console.log("You've hit the API 'create one' endpoint");
 
-  // create and save a user
-  //using the values I sent from app.js using this route
-  // create a new card function goes here
+  // pass in the object from req.body (data sent in)
+  // create new object in the mongo database
   CardGame.create({
     name: req.body.name,
     minPlayers: parseInt(req.body.minPlayers),

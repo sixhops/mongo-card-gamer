@@ -64,6 +64,7 @@ class App extends Component {
     axios.post('/api/cardgames/', newGame)
 
     //3. push into games array NEXT
+    // THEN clear state out by setting the values to empty strings
     let newGamesArray = Array.from(this.state.games)
     newGamesArray.push(newGame)
     this.setState({
