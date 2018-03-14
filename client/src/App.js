@@ -54,14 +54,16 @@ class App extends Component {
       minPlayers: parseInt(this.state.minVal),
       maxPlayers: parseInt(this.state.maxVal)
     }
-  ).then( () => {
+  ).then( (result) => {
+    let gamesCopy = Array.from(this.state.games);
+    gamesCopy.push(result.data);
     this.setState({
+      games: gamesCopy,
       nameVal: '',
       minVal: '',
       maxVal: ''
     })
   })
-
   }
 
   // API call goes here so that data is available after component mounts
@@ -73,13 +75,6 @@ class App extends Component {
     })
   }
 
-  componentDidUpdate() {
-    axios.get('/api/cardgames').then(result => {
-      this.setState({
-        games: result.data
-      })
-    })
-  }
 
   render() {
     return (
