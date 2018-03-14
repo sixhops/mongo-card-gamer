@@ -54,12 +54,26 @@ class App extends Component {
       minPlayers: parseInt(this.state.minVal),
       maxPlayers: parseInt(this.state.maxVal)
     }
-  );
+  ).then( () => {
+    this.setState({
+      nameVal: '',
+      minVal: '',
+      maxVal: ''
+    })
+  })
 
   }
 
   // API call goes here so that data is available after component mounts
   componentDidMount() {
+    axios.get('/api/cardgames').then(result => {
+      this.setState({
+        games: result.data
+      })
+    })
+  }
+
+  componentDidUpdate() {
     axios.get('/api/cardgames').then(result => {
       this.setState({
         games: result.data
@@ -73,6 +87,9 @@ class App extends Component {
         <GameList onGameClick={this.handleGameClick} games={this.state.games} />
         <GameDetail game={this.state.current} />
         <AddGameForm
+          nameVal={this.state.nameVal}
+          minVal={this.state.minVal}
+          maxVal={this.state.maxVal}
           onNameChange={this.handleNameChange}
           onMinChange={this.handleMinChange}
           onMaxChange={this.handleMaxChange}
