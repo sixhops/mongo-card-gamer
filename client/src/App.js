@@ -55,30 +55,32 @@ class App extends Component {
     })
   }
   handleSubmit(e) {
-    console.log(this.state)
-    e.preventDefault();
+  // Add your code here to handle adding a new game to the database
+  // Add your code here to handle adding a new game to the database
+  // HERE: sending the data to the server on this mongoose route here
+  // only sending the new info from the form input fields
 
-    var newGame = CardGame({
-      name: this.state.nameVal,
-      minPlayers: this.state.minVal,
-      maxPlayers: this.state.maxVal
-    });
-
-    // write to DB
-    newGame.save(function(err) {
-      if (err) return console.log(err);
-      console.log('newGame created!');
-    })
-
-    //set the front end to show updated list
-    this.setState({
-      games: [...games,{
-        nameVal: this.state.nameVal,
-        minVal: this.state.minVal,
-        maxVal: this.state.maxVal
-      }];
-    })
+  //1. pull info and set it as a new game
+  let newGame = {
+    name: this.state.nameVal,
+    minPlayers: this.state.minVal,
+    maxPlayers: this.state.maxVal
   }
+
+  //2. run the axios function .... why????
+    axios.post('/api/cardgames/', newGame)
+
+    //3. push into games array NEXT
+    let newGamesArray = Array.from(this.state.games)
+    newGamesArray.push(newGame)
+    this.setState({
+      games: newGamesArray,
+      nameVal: '',
+      minVal: '',
+      maxVal: ''
+    })
+   }
+ 
   
 
   // API call goes here so that data is available after component mounts
@@ -99,7 +101,12 @@ class App extends Component {
           onNameChange=this.handleNameChange
           onMinChange=this.handleMinChange
           onMaxChange=this.handleMaxChange
-          onSubmit=this.handleSubmit />
+          onSubmit={this.handleSubmit}
+          name={this.state.nameVal}
+          min={this.state.minVal}
+          max={this.state.maxVal}
+
+          />
       </div>
     );
   }
