@@ -35,9 +35,16 @@ app.get('/api/cardgames', (req, res) => {
 });
 
 // API route to post a new card game to DB
+// how do i get the new data to the api - use the route from app.js
 app.post('/api/cardgames', (req, res) => {
   console.log("You've hit the API 'create one' endpoint");
-  // Add your code here to create a new game in the DB...
+
+  // create and save a user
+  //using the values I sent from app.js using this route
+  User.create({ name: {name}, minPlayers: {minPlayers},  maxPlayers: {maxPlayers}, function(err, user) {
+    if (err) return console.log(err);
+    console.log(user);
+  });
 
 });
 

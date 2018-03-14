@@ -52,10 +52,22 @@ class App extends Component {
   // Add your code here to handle adding a new game to the database
   // HERE: sending the data to the server on this mongoose route here
   // only sending the new info from the form input fields
+
+  //pull info and set it as a new game
+  let newGame = {
+    name: this.state.nameVal,
+    minPlayers: this.state.minVal,
+    maxPlayers: this.state.maxVal,
+  }
+
+  //push to the games array in cardgames.js
+
+
+  //run the axios function .... why????
     axios.post('/api/cardgames/', {
-      nameVal: this.state.nameVal,
-      maxVal: this.state.maxVal,
-      minVal: this.state.minVal,
+      name: newGame.name,
+      minPlayers: newGame.minPlayers,
+      maxPlayers: newGame.maxPlayers,
  })
 }
 
