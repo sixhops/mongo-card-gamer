@@ -28,6 +28,7 @@ class App extends Component {
     e.stopPropagation()
     this.setState({
       current: this.state.games[parseInt(e.target.id)]
+
     })
   }
 
@@ -46,25 +47,20 @@ class App extends Component {
       maxVal: e.target.value
     })
   }
-  handleSubmit = (e) => {
-    console.log(this.state.games);
-  }
 
-  ////////
-  var newStateArray = this.state.myArray.slice();
-  newStateArray.push('new value');
-  this.setState(myArray: newStateArray);
-
-  handleSubmit = (event) => {
-    event.preventDefault()
-    const { title } = this.state
-    this.props.addArticle({ title })
-    this.setState({ title: "" })
-  }
-
-  ///////
+  handleSubmit(e) {
+  // Add your code here to handle adding a new game to the database
+  // HERE: sending the data to the server on this mongoose route here
+  // only sending the new info from the form input fields
+    axios.post('/api/cardgames/', {
+      nameVal: this.state.nameVal,
+      maxVal: this.state.maxVal,
+      minVal: this.state.minVal,
+ })
+}
 
   // API call goes here so that data is available after component mounts
+  // HERE: getting the data from the server on this mongoose route here
   componentDidMount() {
     axios.get('/api/cardgames').then(result => {
       this.setState({
