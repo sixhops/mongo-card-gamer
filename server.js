@@ -5,6 +5,11 @@ var CardGame = require('./models/cardGame');
 
 var app = express();
 
+var bodyParser = require('body-parser')
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 // Connect to the mongoCardGamer database in MongoDB
 mongoose.connect('mongodb://localhost/mongoCardGamer');
 
@@ -29,12 +34,25 @@ app.get('/api/cardgames', (req, res) => {
   });
 });
 
-// API route to post a new card game to DB
-app.post('/api/cardgames', (req, res) => {
-  console.log("You've hit the API 'create one' endpoint");
+ // API route to post a new card game to DB
+// how do i get the new data to the api - use the route from app.js
+ app.post('/api/cardgames', (req, res) => {
+   console.log("You've hit the API 'create one' endpoint");
   // Add your code here to create a new game in the DB...
   
-});
+
+  // create and save a user
+  //using the values I sent from app.js using this route
+  // create a new card function goes here
+  CardGame.create({
+        name: req.body.name,
+        minPlayers: parseInt(req.body.minPlayers),
+        maxPlayers: parseInt(req.body.maxPlayers)
+    }, (err,game) => {
+            console.log(game)
+        })
+ });
+
 
 // Wildcard route for delivering the React app
 app.get('*', (req, res) => {
