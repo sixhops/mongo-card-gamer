@@ -36,18 +36,36 @@ class App extends Component {
       nameVal: e.target.value
     })
   }
+
   handleMinChange(e) {
     this.setState({
       minVal: e.target.value
     })
   }
+
   handleMaxChange(e) {
     this.setState({
       maxVal: e.target.value
     })
   }
+
   handleSubmit(e) {
     // Add your code here to handle adding a new game to the database
+    console.log(this.state.nameVal)
+    let newGame = {
+      name: this.state.nameVal,
+      minPlayers: +this.state.minVal,
+      maxPlayers: +this.state.maxVal
+    }
+    axios.post('/api/cardgames/', newGame)
+    .then((response) => {
+      this.setState({
+        games: [...this.state.games, newGame],
+        nameVal: '',
+        minVal: '',
+        maxVal: ''
+      })
+    }).catch(error => console.log(error))
   }
 
   // API call goes here so that data is available after component mounts
@@ -65,10 +83,14 @@ class App extends Component {
         <GameList onGameClick={this.handleGameClick} games={this.state.games} />
         <GameDetail game={this.state.current} />
         <AddGameForm
+          name={this.state.nameVal}
+          min={this.state.minVal}
+          max={this.state.maxVal}
           onNameChange={this.handleNameChange}
           onMinChange={this.handleMinChange}
           onMaxChange={this.handleMaxChange}
-          onSubmit={this.handleSubmit} />
+          onSubmit={this.handleSubmit}
+           />
       </div>
     );
   }
