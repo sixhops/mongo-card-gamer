@@ -2,6 +2,8 @@ var express = require('express');
 var path = require('path');
 var mongoose = require('mongoose');
 var CardGame = require('./models/cardGame');
+var bodyParser = require('body-parser');
+
 
 var app = express();
 
@@ -9,6 +11,9 @@ var app = express();
 mongoose.connect('mongodb://localhost/mongoCardGamer');
 
 const PORT = process.env.PORT || 3000;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Serve our static assets (including our React app)
 app.use(express.static(path.resolve(__dirname, 'client', 'build')));
@@ -33,7 +38,28 @@ app.get('/api/cardgames', (req, res) => {
 app.post('/api/cardgames', (req, res) => {
   console.log("You've hit the API 'create one' endpoint");
   // Add your code here to create a new game in the DB...
-  
+  // CardGame.create({
+  //   name: req.body.name,
+  //   minPlayers: req.body.minPlayers,
+  //   maxPlayers: req.body.maxPlayers
+  // }).then((err, game) => {
+  //   res.send('blah blah')
+  // })
+  CardGame.create({
+      name: req.body.name,
+      minPlayers: req.body.minPlayers,
+      maxPlayers: req.body.maxPlayers
+    }, (err, cardGame) => {
+      if (err) {
+        console.log(err);
+        res.send(err);
+      } else {
+        console.log(cardGame);
+        res.send(cardGame);
+      }
+    }
+  )
+
 });
 
 // Wildcard route for delivering the React app
