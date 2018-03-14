@@ -48,6 +48,39 @@ class App extends Component {
   }
   handleSubmit(e) {
     // Add your code here to handle adding a new game to the database
+    // let newGame = {
+    //   name: this.state.nameVal,
+    //   minPlayers: parseInt(this.state.minVal),
+    //   maxPlayers: parseInt(this.state.maxVal)
+    // }
+    // axios.post('/api/cardgames', newGame)
+    //   .then(() => {
+    //     this.setState({
+    //       games: [...this.state.name, newGame],
+    //       nameVal: '',
+    //       minVal: '',
+    //       maxVal: ''
+    //     })
+    //   }).catch( error => console.log(error))
+    axios.post('/api/cardgames', {
+      name: this.state.nameVal,
+      minPlayers: this.state.minVal,
+      maxPlayers: this.state.maxVal
+    }).then(result => {
+      console.log(result)
+      let gamesCopy = Array.from(this.state.games);
+      gamesCopy.push({
+        name: this.state.nameVal,
+        minPlayers: this.state.minVal,
+        maxPlayers: this.state.maxVal
+      });
+      this.setState({
+        games: gamesCopy,
+        nameVal: '',
+        minVal: '',
+        maxVal: ''
+      })
+    })
   }
 
   // API call goes here so that data is available after component mounts
@@ -59,12 +92,24 @@ class App extends Component {
     })
   }
 
+  // componentDidUpdate() {
+  //     axios.get('/api/cardgames')
+  //     .then((result) => {
+  //       this.setState({
+  //       games: result.data
+  //     })
+  //   })
+  // }
+
   render() {
     return (
       <div>
         <GameList onGameClick={this.handleGameClick} games={this.state.games} />
         <GameDetail game={this.state.current} />
         <AddGameForm
+          nameVal={this.state.nameVal}
+          minVal={this.state.minVal}
+          maxVal={this.state.maxVal}
           onNameChange={this.handleNameChange}
           onMinChange={this.handleMinChange}
           onMaxChange={this.handleMaxChange}
