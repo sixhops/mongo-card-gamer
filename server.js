@@ -47,7 +47,7 @@ app.post('/api/cardgames', (req, res) => {
     name: req.body.name,
     minPlayers: parseInt(req.body.minPlayers),
     maxPlayers: parseInt(req.body.maxPlayers)
-}, (err,game) => {
+}, (err,game) => {   // this sends that data back as a created object to app
   console.log(game)
   })
 });

@@ -60,11 +60,14 @@ class App extends Component {
       maxPlayers: this.state.maxVal
     }
 
-    //2. run the axios function to post this object in
+    //2. run the axios function to post this object into the database
     axios.post('/api/cardgames/', newGame)
 
-    //3. push into games array NEXT
+    //3. push into games array NEXT on the react side
     // THEN clear state out by setting the values to empty strings
+    // here we're making a copy of the current game Array
+    // then we're updating it with our new object
+    // then we're updating the state
     let newGamesArray = Array.from(this.state.games)
     newGamesArray.push(newGame)
     this.setState({
