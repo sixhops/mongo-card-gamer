@@ -48,6 +48,14 @@ class App extends Component {
   }
   handleSubmit(e) {
     // Add your code here to handle adding a new game to the database
+    axios.post('/api/cardgames',
+    {
+      name: this.state.nameVal,
+      minPlayers: parseInt(this.state.minVal),
+      maxPlayers: parseInt(this.state.maxVal)
+    }
+  );
+
   }
 
   // API call goes here so that data is available after component mounts
