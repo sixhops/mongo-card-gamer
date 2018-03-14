@@ -6,6 +6,7 @@ const GameDetail = props => {
   console.log(game)
 
   // This code sets up the list contents based on whether any games are found or not
+  
   let details
   if (Object.keys(game).length > 0) {
     details = (

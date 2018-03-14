@@ -21,10 +21,12 @@ app.use(express.static(path.resolve(__dirname, 'client', 'build')));
 // API route to get all card games from DB
 app.get('/api/cardgames', (req, res) => {
   console.log("You've hit the API 'find all' endpoint");
-  // Find all card games...
+  // Find all card games... (ALL indicated by empty {}, this returns an array of objects = cardGames)
   CardGame.find({}, function(err, cardGames) {
     if (err) {
       console.log("There was a db error");
+      //this data is sent back to the axios call in app.js for use
+      //we're sending back an array of objects?
       res.send(err);
     } else {
       console.log("Got games from DB!")

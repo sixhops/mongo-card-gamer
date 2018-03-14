@@ -53,14 +53,14 @@ class App extends Component {
   // HERE: sending the data to the server on this mongoose route here
   // only sending the new info from the form input fields
 
-  //1. pull info and set it as a new game
-  let newGame = {
-    name: this.state.nameVal,
-    minPlayers: this.state.minVal,
-    maxPlayers: this.state.maxVal
-  }
+    //1. pull info that is stored in the state, as an object
+    let newGame = {
+      name: this.state.nameVal,
+      minPlayers: this.state.minVal,
+      maxPlayers: this.state.maxVal
+    }
 
-  //2. run the axios function .... why????
+    //2. run the axios function to post this object in
     axios.post('/api/cardgames/', newGame)
 
     //3. push into games array NEXT
@@ -76,14 +76,20 @@ class App extends Component {
 
   // API call goes here so that data is available after component mounts
   // HERE: getting the data from the server on this mongoose route here
+  // this fires once?
+  //this calls a url/route localhost:3000/api/cardgame
   componentDidMount() {
     axios.get('/api/cardgames').then(result => {
       this.setState({
+        //we're getting the data sent from server.js
+        //this wraps the data in an object, then updates the state
         games: result.data
       })
     })
   }
 
+// here we're sending that new data down into the components for display
+// this is updated using the   games={this.state.games}
   render() {
     return (
       <div>
