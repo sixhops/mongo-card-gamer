@@ -6,6 +6,11 @@ import GameList from './GameList';
 import GameDetail from './GameDetail';
 import AddGameForm from './AddGameForm';
 
+var bodyParser = require('body-parser')
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
+
 class App extends Component {
   constructor(props) {
     super();
