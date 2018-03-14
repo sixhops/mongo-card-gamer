@@ -37,15 +37,20 @@ app.get('/api/cardgames', (req, res) => {
 app.post('/api/cardgames', (req, res) => {
   console.log("You've hit the API 'create one' endpoint");
   // Add your code here to create a new game in the DB...
-  console.log(req.body);
-
+  // console.log(req.body);
   CardGame.create({
     name: req.body.name,
     minPlayers: req.body.minPlayers,
     maxPlayers: req.body.maxPlayers
   })
   .then((err, game) => {
-    res.send(game);
+    if (err){
+      console.log(err);
+      res.send(err);
+    } else {
+      console.log(game);
+      res.send(game);
+    }
   })
 });
 

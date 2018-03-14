@@ -51,12 +51,17 @@ class App extends Component {
 
   handleSubmit(e) {
     // Add your code here to handle adding a new game to the database
-    console.log(this.state.nameVal)
+    // console.log(this.state.nameVal)
+    // get the object being submitted
     let newGame = {
       name: this.state.nameVal,
       minPlayers: +this.state.minVal,
       maxPlayers: +this.state.maxVal
     }
+    // do the axios post call with the new object
+    // once you get the response set the state to the new
+    // data.  be sure to use spread or make a copy of
+    // existing state before attempting to modify
     axios.post('/api/cardgames/', newGame)
     .then((response) => {
       this.setState({
@@ -69,6 +74,8 @@ class App extends Component {
   }
 
   // API call goes here so that data is available after component mounts
+  // this is where async call happens when the page is loaded
+  // when you call axios there is a sub folder for data
   componentDidMount() {
     axios.get('/api/cardgames').then(result => {
       this.setState({
