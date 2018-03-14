@@ -53,23 +53,26 @@ class App extends Component {
   // HERE: sending the data to the server on this mongoose route here
   // only sending the new info from the form input fields
 
-  //pull info and set it as a new game
+  //1. pull info and set it as a new game
   let newGame = {
     name: this.state.nameVal,
     minPlayers: this.state.minVal,
-    maxPlayers: this.state.maxVal,
+    maxPlayers: this.state.maxVal
   }
 
-  //push to the games array in cardgames.js
+  //2. run the axios function .... why????
+    axios.post('/api/cardgames/', newGame)
 
-
-  //run the axios function .... why????
-    axios.post('/api/cardgames/', {
-      name: newGame.name,
-      minPlayers: newGame.minPlayers,
-      maxPlayers: newGame.maxPlayers,
- })
-}
+    //3. push into games array NEXT
+    let newGamesArray = Array.from(this.state.games)
+    newGamesArray.push(newGame)
+    this.setState({
+      games: newGamesArray,
+      nameVal: '',
+      minVal: '',
+      maxVal: ''
+    })
+  }
 
   // API call goes here so that data is available after component mounts
   // HERE: getting the data from the server on this mongoose route here
@@ -90,7 +93,11 @@ class App extends Component {
           onNameChange={this.handleNameChange}
           onMinChange={this.handleMinChange}
           onMaxChange={this.handleMaxChange}
-          onSubmit={this.handleSubmit} />
+          onSubmit={this.handleSubmit}
+          name={this.state.nameVal}
+          min={this.state.minVal}
+          max={this.state.maxVal}
+        />
       </div>
     );
   }

@@ -41,11 +41,14 @@ app.post('/api/cardgames', (req, res) => {
 
   // create and save a user
   //using the values I sent from app.js using this route
-  User.create({ name: {name}, minPlayers: {minPlayers},  maxPlayers: {maxPlayers}, function(err, user) {
-    if (err) return console.log(err);
-    console.log(user);
-  });
-
+  // create a new card function goes here
+  CardGame.create({
+    name: req.body.name,
+    minPlayers: parseInt(req.body.minPlayers),
+    maxPlayers: parseInt(req.body.maxPlayers)
+}, (err,game) => {
+  console.log(game)
+  })
 });
 
 // Wildcard route for delivering the React app
