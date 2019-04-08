@@ -28,6 +28,7 @@ class App extends Component {
     e.stopPropagation()
     this.setState({
       current: this.state.games[parseInt(e.target.id)]
+
     })
   }
 
@@ -46,19 +47,53 @@ class App extends Component {
       maxVal: e.target.value
     })
   }
+
   handleSubmit(e) {
-    // Add your code here to handle adding a new game to the database
+  // Add your code here to handle adding a new game to the database
+  // HERE: sending the data to the server on this mongoose route here
+  // only sending the new info from the form input fields
+
+    //1. pull info that is stored in the state, as an object
+    let newGame = {
+      name: this.state.nameVal,
+      minPlayers: this.state.minVal,
+      maxPlayers: this.state.maxVal
+    }
+
+    //2. run the axios function to post this object into the database
+    axios.post('/api/cardgames/', newGame)
+
+    //3. push into games array NEXT on the react side
+    // THEN clear state out by setting the values to empty strings
+    // here we're making a copy of the current game Array
+    // then we're updating it with our new object
+    // then we're updating the state
+    let newGamesArray = Array.from(this.state.games)
+    newGamesArray.push(newGame)
+    this.setState({
+      games: newGamesArray,
+      nameVal: '',
+      minVal: '',
+      maxVal: ''
+    })
   }
 
   // API call goes here so that data is available after component mounts
+  // HERE: getting the data from the server on this mongoose route here
+  // this fires once?
+  //this calls a url/route localhost:3000/api/cardgame
   componentDidMount() {
     axios.get('/api/cardgames').then(result => {
       this.setState({
+        //we're getting the data sent from server.js
+        //this wraps the data in an object, then updates the state
         games: result.data
       })
     })
   }
 
+// here we're sending that new data down into the components for display
+// this is updated using the   games={this.state.games}
   render() {
     return (
       <div>
@@ -68,7 +103,11 @@ class App extends Component {
           onNameChange={this.handleNameChange}
           onMinChange={this.handleMinChange}
           onMaxChange={this.handleMaxChange}
-          onSubmit={this.handleSubmit} />
+          onSubmit={this.handleSubmit}
+          name={this.state.nameVal}
+          min={this.state.minVal}
+          max={this.state.maxVal}
+        />
       </div>
     );
   }
